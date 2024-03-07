@@ -139,145 +139,26 @@ unsigned int energy(Pixel image[][MAX_HEIGHT], unsigned int x, unsigned int y, u
 
 // uncomment functions as you implement them (part 2)
 
-unsigned int loadVerticalSeam(Pixel image[][MAX_HEIGHT], unsigned int start_col, unsigned int width, unsigned int height, unsigned int seam[]) {
-    unsigned int energy_sum = 0;
-    for (unsigned int y = 0; y < height; y++) {
-        unsigned int min_col = start_col;
-        unsigned int min_energy = energy(image, start_col, y, width, height);
-        
-        if (start_col > 0) {
-            unsigned int left_energy = energy(image, start_col - 1, y, width, height);
-            if (left_energy < min_energy) {
-                min_energy = left_energy;
-                min_col = start_col - 1;
-            }
-        }
-        
-        if (start_col < width - 1) {
-            unsigned int right_energy = energy(image, start_col + 1, y, width, height);
-            if (right_energy < min_energy) {
-                min_energy = right_energy;
-                min_col = start_col + 1;
-            }
-        }
-        
-        seam[y] = min_col;
-        energy_sum += min_energy;
-        start_col = min_col;
-    }
-    return energy_sum;
-}
-
-unsigned int loadHorizontalSeam(Pixel image[][MAX_HEIGHT], unsigned int start_row, unsigned int width, unsigned int height, unsigned int seam[]) {
+// unsigned int loadVerticalSeam(Pixel image[][MAX_HEIGHT], unsigned int start_col, unsigned int width, unsigned int height, unsigned int seam[]) {
    // TODO: implement (part 2)
-    unsigned int energy_sum = 0;
-    for (unsigned int x = 0; x < width; x++) {
-        unsigned int min_row = start_row;
-        unsigned int min_energy = energy(image, x, start_row, width, height);
-        
-        if (start_row > 0) {
-            unsigned int top_energy = energy(image, x, start_row - 1, width, height);
-            if (top_energy < min_energy) {
-                min_energy = top_energy;
-                min_row = start_row - 1;
-            }
-        }
-        
-        if (start_row < height - 1) {
-            unsigned int bottom_energy = energy(image, x, start_row + 1, width, height);
-            if (bottom_energy < min_energy) {
-                min_energy = bottom_energy;
-                min_row = start_row + 1;
-            }
-        }
-        
-        seam[x] = min_row;
-        energy_sum += min_energy;
-        start_row = min_row;
-    }
-    return energy_sum;
-}
+// }
 
-void findMinVerticalSeam(Pixel image[][MAX_HEIGHT], unsigned int width, unsigned int height, unsigned int seam[]) {
+// unsigned int loadHorizontalSeam(Pixel image[][MAX_HEIGHT], unsigned int start_row, unsigned int width, unsigned int height, unsigned int seam[]) {
    // TODO: implement (part 2)
-    unsigned int min_energy = 0xFFFFFFFF;
-    unsigned int start_col = 0;
-    for (unsigned int x = 0; x < width; x++) {
-        unsigned int temp_seam[MAX_HEIGHT];
-        unsigned int seam_energy = loadVerticalSeam(image, x, width, height, temp_seam);
-        if (seam_energy < min_energy) {
-            min_energy = seam_energy;
-            start_col = x;
-            for (unsigned int y = 0; y < height; y++) {
-                seam[y] = temp_seam[y];
-            }
-        }
-    }
-    loadVerticalSeam(image, start_col, width, height, seam);
-}
+//}
 
-void findMinHorizontalSeam(Pixel image[][MAX_HEIGHT], unsigned int width, unsigned int height, unsigned int seam[]) {
+// void findMinVerticalSeam(Pixel image[][MAX_HEIGHT], unsigned int width, unsigned int height, unsigned int seam[]) {
    // TODO: implement (part 2)
-    unsigned int min_energy = 0xFFFFFFFF;
-    unsigned int start_row = 0;
-    for (unsigned int y = 0; y < height; y++) {
-        unsigned int temp_seam[MAX_WIDTH];
-        unsigned int seam_energy = loadHorizontalSeam(image, y, width, height, temp_seam);
-        if (seam_energy < min_energy) {
-            min_energy = seam_energy;
-            start_row = y;
-            for (unsigned int x = 0; x < width; x++) {
-                seam[x] = temp_seam[x];
-            }
-        }
-    }
-    loadHorizontalSeam(image, start_row, width, height, seam);
-}
+//}
 
- void removeVerticalSeam(Pixel image[][MAX_HEIGHT], unsigned int& width, unsigned int height, unsigned int verticalSeam[]) {
+// void findMinHorizontalSeam(Pixel image[][MAX_HEIGHT], unsigned int width, unsigned int height, unsigned int seam[]) {
    // TODO: implement (part 2)
-    Pixel temp[MAX_WIDTH - 1][MAX_HEIGHT];
-    unsigned int new_width = width - 1;
-    
-    for (unsigned int y = 0; y < height; y++) {
-        unsigned int col = 0;
-        for (unsigned int x = 0; x < width; x++) {
-            if (x != verticalSeam[y]) {
-                temp[col][y] = image[x][y];
-                col++;
-            }
-        }
-    }
-    
-    for (unsigned int y = 0; y < height; y++) {
-        for (unsigned int x = 0; x < new_width; x++) {
-            image[x][y] = temp[x][y];
-        }
-    }
-    
-    width = new_width;
-}
+//}
 
-void removeHorizontalSeam(Pixel image[][MAX_HEIGHT], unsigned int width, unsigned int& height, unsigned int horizontalSeam[]) {
+// void removeVerticalSeam(Pixel image[][MAX_HEIGHT], unsigned int& width, unsigned int height, unsigned int verticalSeam[]) {
    // TODO: implement (part 2)
-    Pixel temp[MAX_WIDTH][MAX_HEIGHT - 1];
-    unsigned int new_height = height - 1;
-    
-    for (unsigned int x = 0; x < width; x++) {
-        unsigned int row = 0;
-        for (unsigned int y = 0; y < height; y++) {
-            if (y != horizontalSeam[x]) {
-                temp[x][row] = image[x][y];
-                row++;
-            }
-        }
-    }
-    
-    for (unsigned int y = 0; y < new_height; y++) {
-        for (unsigned int x = 0; x < width; x++) {
-            image[x][y] = temp[x][y];
-        }
-    }
-    
-    height = new_height;
-}
+//}
+
+// void removeHorizontalSeam(Pixel image[][MAX_HEIGHT], unsigned int width, unsigned int& height, unsigned int horizontalSeam[]) {
+   // TODO: implement (part 2)
+//}
